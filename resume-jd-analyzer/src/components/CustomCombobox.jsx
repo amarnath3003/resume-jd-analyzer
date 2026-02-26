@@ -1,0 +1,78 @@
+import React, { useState, useRef, useEffect } from 'react';
+import { ChevronDown, Check } from 'lucide-react';
+
+export default function CustomCombobox({ options, value, onChange, label, placeholder = "Type or select..." }) {
+    const [isOpen, setIsOpen] = useState(false);
+    const dropdownRef = useRef(null);
+
+    // Close dropdown when clicking outside
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setIsOpen(false);
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
+
+    const filteredOptions = options.filter(opt =>
+        opt.label.toLowerCase().includes((value || "").toLowerCase())
+    );
+
+    return (
+        <div className="flex flex-col text-sm font-medium text-slate-300 relative" ref={dropdownRef}>
+            <label className="mb-2 tracking-wide opacity-80">{label}</label>
+
+            <div
+                className="w-full p-4 bg-white/5 border border-white/10 rounded-2xl hover:border-white/30 hover:bg-white/10 transition-all flex justify-between items-center backdrop-blur-md shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] cursor-text"
+                onClick={() => setIsOpen(true)}
+            >
+                <input
+                    type="text"
+                    value={value}
+                    onChange={(e) => {
+                        onChange(e.target.value);
+                        setIsOpen(true);
+                    }}
+                    onFocus={() => setIsOpen(true)}
+                    className="bg-transparent text-gradient font-medium pl-1 w-full outline-none placeholder:text-white/30"
+                    placeholder={placeholder}
+                />
+                <ChevronDown
+                    className={`w-5 h-5 text-slate-400 transition-transform duration-300 cursor-pointer flex-shrink-0 ml-2 ${isOpen ? 'rotate-180 text-gradient' : ''}`}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        setIsOpen(!isOpen);
+                    }}
+                />
+            </div>
+
+            {isOpen && (
+                <div className="absolute top-[105%] left-0 w-full z-50 mt-2 bg-zinc-900/90 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_20px_40px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.05)] overflow-hidden dropdown-menu origin-top py-2 max-h-60 overflow-y-auto">
+                    {filteredOptions.length > 0 ? filteredOptions.map((option) => (
+                        <div
+                            key={option.value}
+                            className={`px-5 py-3.5 mx-2 rounded-xl cursor-pointer flex items-center justify-between transition-colors duration-200 ${option.value === value
+                                ? 'bg-white/10 text-gradient font-semibold'
+                                : 'text-slate-300 hover:bg-white/5 hover:text-gradient'
+                                }`}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                onChange(option.label);
+                                setIsOpen(false);
+                            }}
+                        >
+                            <span>{option.label}</span>
+                            {option.value === value && <Check className="w-4 h-4 text-gradient" />}
+                        </div>
+                    )) : (
+                        <div className="px-5 py-3.5 mx-2 text-slate-500 text-center italic">
+                            No options found
+                        </div>
+                    )}
+                </div>
+            )}
+        </div>
+    );
+}

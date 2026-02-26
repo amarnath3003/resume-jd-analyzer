@@ -1,5 +1,6 @@
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.concurrency import run_in_threadpool
 
 from pdf_utils import extract_text_from_pdf
 from agent import agent
@@ -37,8 +38,8 @@ async def analyze_resume(
     try:
         resume_bytes = await resume_pdf.read()
         jd_bytes = await jd_pdf.read()
-        resume_text = extract_text_from_pdf(resume_bytes)
-        jd_text = extract_text_from_pdf(jd_bytes)
+        resume_text = await run_in_threadpool(extract_text_from_pdf, resume_bytes)
+        jd_text = await run_in_threadpool(extract_text_from_pdf, jd_bytes)
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
@@ -59,9 +60,10 @@ async def analyze_resume(
         )
         return result
 
-    except Exception:
-        # Final safety net (agent already logs details)
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
         raise HTTPException(
             status_code=500,
-            detail="Failed to analyze resume against job description"
+            detail=f"Failed to analyze resume against job description: {str(e)}"
         )

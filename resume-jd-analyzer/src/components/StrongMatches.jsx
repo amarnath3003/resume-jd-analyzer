@@ -13,7 +13,7 @@ export default function StrongMatches({ items }) {
   if (!items || items.length === 0) {
     return (
       <div className="glass-card border-l-4 border-l-white/60 p-6 relative overflow-hidden group">
-        <h3 className="text-xl font-bold text-white mb-2 flex items-center gap-2">
+        <h3 className="text-xl font-bold text-gradient mb-2 flex items-center gap-2">
           <CheckCircle2 className="w-5 h-5 opacity-80" /> Strong Matches
         </h3>
         <p className="text-white/60 text-sm font-medium">No strong matches found yet.</p>
@@ -26,7 +26,7 @@ export default function StrongMatches({ items }) {
       <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
       <div className="mb-8 relative z-10 border-b border-white/10 pb-6">
-        <h3 className="text-2xl font-bold text-white flex items-center gap-3 mb-2 tracking-tight">
+        <h3 className="text-2xl font-bold text-gradient flex items-center gap-3 mb-2 tracking-tight">
           <CheckCircle2 className="w-6 h-6 opacity-80" /> Strong Matches <span className="text-white/40 text-lg">({items.length})</span>
         </h3>
         <p className="text-white/60 text-sm md:text-base font-medium">
@@ -38,10 +38,13 @@ export default function StrongMatches({ items }) {
         {items.map((item, idx) => (
           <div key={idx} className="w-full bg-white/[0.03] border border-white/10 rounded-2xl p-6 transition-all duration-300 hover:bg-white/[0.06] hover:border-white/30 hover:-translate-y-1 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
             <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-3">
-              <div className="text-white font-semibold text-lg tracking-tight">{item.skill}</div>
-              <span className="shrink-0 inline-flex items-center justify-center bg-white/10 text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider border border-white/10">
-                Confidence: {getConfidence(item)}%
-              </span>
+              <div className="text-gradient font-semibold text-lg tracking-tight">{item.skill}</div>
+              <div className="relative inline-flex group/badge rounded-full p-[1px] overflow-hidden">
+                <div className="absolute top-1/2 left-1/2 w-[400%] aspect-square -translate-x-1/2 -translate-y-1/2 bg-[conic-gradient(from_0deg,theme(colors.green.500),theme(colors.emerald.400),theme(colors.green.500))] animate-[spin_3s_linear_infinite] -z-10 blur-[1px]"></div>
+                <span className="shrink-0 inline-flex items-center justify-center bg-zinc-950/90 text-white/70 px-3 py-1 rounded-full text-[10px] sm:text-xs font-semibold uppercase tracking-wider h-full w-full">
+                  Confidence: {getConfidence(item)}%
+                </span>
+              </div>
             </div>
             <div className="text-white/70 text-sm leading-relaxed font-medium">{item.evidence}</div>
           </div>

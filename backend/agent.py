@@ -15,9 +15,6 @@ class ResumeAnalysisAgent:
     """Agent for analyzing resumes against job descriptions"""
 
     def __init__(self, api_key: str):
-        if not api_key:
-            raise RuntimeError("OPENROUTER_API_KEY is required")
-
         self.api_key = api_key
         self.base_url = "https://openrouter.ai/api/v1"
         self.model = "meta-llama/llama-3-8b-instruct"
@@ -32,10 +29,18 @@ class ResumeAnalysisAgent:
         Public entrypoint.
         Retries once automatically before falling back.
         """
+        if not self.api_key:
+            raise RuntimeError("OPENROUTER_API_KEY is not set. Please check your .env file.")
 
-        # Trim inputs early (VERY important)
-        resume_text = resume_text[:MAX_CHARS]
-        jd_text = jd_text[:MAX_CHARS]
+        def safe_truncate(text: str, max_len: int) -> str:
+            if len(text) <= max_len:
+                return text
+            cut = text.rfind(' ', 0, max_len)
+            return text[:cut] if cut != -1 else text[:max_len]
+
+        # Trim inputs early & safely
+        resume_text = safe_truncate(resume_text, MAX_CHARS)
+        jd_text = safe_truncate(jd_text, MAX_CHARS)
 
         for attempt in range(2):  # max 2 attempts
             try:
@@ -47,20 +52,9 @@ class ResumeAnalysisAgent:
                     str(e),
                 )
 
-        # Fallback only after retries
-        logger.error("All analysis attempts failed, returning fallback response")
-
-        return AnalysisResponse(
-            overall_match_score=50,
-            strong_matches=[],
-            missing_skills=[],
-            weak_evidence=[],
-            improvement_plan=[],
-            final_summary=(
-                "The analysis could not be completed due to a processing error. "
-                "Please try again."
-            ),
-        )
+        # Fail explicitly instead of returning dummy data
+        logger.error("All analysis attempts failed.")
+        raise RuntimeError("Failed to complete analysis after multiple attempts.")
 
     async def _run_analysis(
         self,
@@ -186,7 +180,14 @@ CONTEXT:
         if start == -1 or end == -1:
             raise ValueError("No JSON object found in model output")
 
-        data = json.loads(content[start:end])
+        try:
+            data = json.loads(content[start:end])
+        except json.decoder.JSONDecodeError:
+            try:
+                # Fallback to parse the entire content
+                data = json.loads(content)
+            except json.decoder.JSONDecodeError as e:
+                raise ValueError(f"Failed to parse JSON from model output: {e}")
 
         # Let pydantic validate strictly
         return AnalysisResponse(**data)

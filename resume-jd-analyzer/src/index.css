@@ -90,13 +90,6 @@
     background: rgba(30, 30, 30, 0.5);
   }
 
-  .glass-text {
-    background: linear-gradient(180deg, #FFFFFF 0%, rgba(255, 255, 255, 0.7) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
   .btn-primary {
     width: 100%;
     padding: 1rem 1.75rem;
@@ -134,11 +127,22 @@
     transform: none;
   }
 
+  .glass-text,
+  .text-gradient,
   .stats-value-gradient {
-    background: linear-gradient(180deg, #FFFFFF 0%, rgba(255, 255, 255, 0.5) 100%);
+    /* Rich glass metallic silver gradient */
+    background: linear-gradient(180deg, #FFFFFF 0%, #a1a1aa 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    color: transparent;
+  }
+
+  /* Safeguard to ensure Lucide SVGs nested inside transparent-colored texts don't vanish */
+  .glass-text svg,
+  .text-gradient svg,
+  .stats-value-gradient svg {
+    color: white;
   }
 }
 

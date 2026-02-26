@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, field_validator
 from typing import List, Literal
 
 
@@ -7,11 +7,21 @@ class StrongMatch(BaseModel):
     evidence: str
     confidence: Literal["high", "medium", "low"]
 
+    @field_validator("confidence", mode="before")
+    @classmethod
+    def lowercase_confidence(cls, v):
+        return v.lower() if isinstance(v, str) else v
+
 
 class MissingSkill(BaseModel):
     skill: str
     importance: Literal["critical", "important", "optional"]
     reason: str
+
+    @field_validator("importance", mode="before")
+    @classmethod
+    def lowercase_importance(cls, v):
+        return v.lower() if isinstance(v, str) else v
 
 
 class WeakEvidence(BaseModel):
@@ -25,6 +35,11 @@ class ImprovementItem(BaseModel):
     linked_skill: str
     estimated_effort: Literal["short", "medium", "long"]
     resume_impact: Literal["high", "medium", "low"]
+
+    @field_validator("estimated_effort", "resume_impact", mode="before")
+    @classmethod
+    def lowercase_enums(cls, v):
+        return v.lower() if isinstance(v, str) else v
 
 
 class AnalysisResponse(BaseModel):

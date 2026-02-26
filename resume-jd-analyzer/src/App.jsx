@@ -13,14 +13,15 @@ import WeakEvidence from "./components/WeakEvidence";
 import ImprovementPlan from "./components/ImprovementPlan";
 import FinalNarrative from "./components/FinalNarrative";
 import CustomDropdown from "./components/CustomDropdown";
+import CustomCombobox from "./components/CustomCombobox";
 
 function App() {
   const [resumeFile, setResumeFile] = useState(null);
   const [jdFile, setJdFile] = useState(null);
 
   const [experienceLevel, setExperienceLevel] = useState("junior");
-  const [roleType, setRoleType] = useState("backend");
-  const [industry, setIndustry] = useState("saas");
+  const [roleType, setRoleType] = useState("Frontend Engineer"); // Defaults updated to match selected label
+  const [industry, setIndustry] = useState("General SaaS"); // Defaults updated to match selected label
   const [resumeSource, setResumeSource] = useState("professional");
 
   const [loading, setLoading] = useState(false);
@@ -52,7 +53,7 @@ function App() {
   const isDisabled = loading || !resumeFile || !jdFile;
 
   return (
-    <div className="relative min-h-screen overflow-hidden selection:bg-white/20 selection:text-white pb-20">
+    <div className="relative min-h-screen overflow-hidden selection:bg-white/20 selection:text-gradient pb-20">
       {/* Background Decorative Glass Panes imitating the reference image */}
       <div className="absolute top-[-10%] left-[-10%] w-[60vw] h-[60vw] hero-glass-pane rotate-12 opacity-40 -z-10 pointer-events-none blur-[2px]"></div>
       <div className="absolute bottom-[-10%] right-[-5%] w-[50vw] h-[50vw] hero-glass-pane -rotate-12 opacity-30 -z-10 pointer-events-none blur-[1px]"></div>
@@ -73,13 +74,13 @@ function App() {
         <section className="mb-12 relative z-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
             <div className="glass-card p-6 md:p-8">
-              <h2 className="text-white text-xl font-semibold mb-6 flex items-center gap-2">
+              <h2 className="text-gradient text-xl font-semibold mb-6 flex items-center gap-2">
                 <FileText className="w-6 h-6 text-white/50" /> Your Resume
               </h2>
               <ResumeInput setResumeFile={setResumeFile} />
             </div>
             <div className="glass-card p-6 md:p-8">
-              <h2 className="text-white text-xl font-semibold mb-6 flex items-center gap-2">
+              <h2 className="text-gradient text-xl font-semibold mb-6 flex items-center gap-2">
                 <Target className="w-6 h-6 text-white/50" /> Target JD
               </h2>
               <JobDescriptionInput setJdFile={setJdFile} />
@@ -88,7 +89,7 @@ function App() {
 
           {/* CONTEXT DROPDOWNS */}
           <div className="glass-card mb-10 z-30 relative overflow-visible p-6 md:p-8">
-            <h2 className="text-white text-lg font-semibold mb-6 border-b border-white/10 pb-4">Analysis Context</h2>
+            <h2 className="text-gradient text-lg font-semibold mb-6 border-b border-white/10 pb-4">Analysis Context</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               <CustomDropdown
                 label="Experience Level"
@@ -100,30 +101,30 @@ function App() {
                   { value: "senior", label: "Senior (5+ yrs)" }
                 ]}
               />
-              <CustomDropdown
+              <CustomCombobox
                 label="Target Role"
                 value={roleType}
                 onChange={setRoleType}
                 options={[
-                  { value: "backend", label: "Backend Engineer" },
-                  { value: "frontend", label: "Frontend Engineer" },
-                  { value: "fullstack", label: "Full-Stack Engineer" },
-                  { value: "ml", label: "ML Engineer" },
-                  { value: "data", label: "Data Engineer" },
-                  { value: "devops", label: "DevOps Engineer" }
+                  { value: "Backend Engineer", label: "Backend Engineer" },
+                  { value: "Frontend Engineer", label: "Frontend Engineer" },
+                  { value: "Full-Stack Engineer", label: "Full-Stack Engineer" },
+                  { value: "ML Engineer", label: "ML Engineer" },
+                  { value: "Data Engineer", label: "Data Engineer" },
+                  { value: "DevOps Engineer", label: "DevOps Engineer" }
                 ]}
               />
-              <CustomDropdown
+              <CustomCombobox
                 label="Industry"
                 value={industry}
                 onChange={setIndustry}
                 options={[
-                  { value: "saas", label: "General SaaS" },
-                  { value: "fintech", label: "Fintech" },
-                  { value: "ecommerce", label: "E-commerce" },
-                  { value: "healthcare", label: "Healthcare" },
-                  { value: "enterprise", label: "Enterprise / B2B" },
-                  { value: "startup", label: "Startup" }
+                  { value: "General SaaS", label: "General SaaS" },
+                  { value: "Fintech", label: "Fintech" },
+                  { value: "E-commerce", label: "E-commerce" },
+                  { value: "Healthcare", label: "Healthcare" },
+                  { value: "Enterprise / B2B", label: "Enterprise / B2B" },
+                  { value: "Startup", label: "Startup" }
                 ]}
               />
               <CustomDropdown
@@ -140,21 +141,23 @@ function App() {
           </div>
 
           {/* ANALYZE BUTTON */}
-          <div className="flex justify-center mt-8">
+          <div className="flex justify-center mt-8 relative w-full max-w-md mx-auto rounded-xl p-[1px] overflow-hidden group/btn shadow-[0_0_40px_rgba(255,255,255,0.1)]">
+            {/* Spinning white gradient for the button border */}
+            <div className="absolute top-1/2 left-1/2 w-[400%] aspect-square -translate-x-1/2 -translate-y-1/2 bg-[conic-gradient(from_0deg,transparent,rgba(255,255,255,0.8),transparent)] animate-[spin_2s_linear_infinite] -z-10 blur-[1px]"></div>
+
             <button
-              className="btn-primary max-w-md w-full glass-card border-white/20 hover:border-white/40 group relative overflow-hidden flex items-center justify-center gap-3 transition-all duration-500 ease-out"
+              className="w-full bg-zinc-950/90 rounded-[11px] py-4 px-6 flex items-center justify-center gap-3 transition-colors duration-500 hover:bg-zinc-900/90 z-10 disabled:opacity-50 disabled:cursor-not-allowed"
               onClick={handleAnalyze}
               disabled={isDisabled}
             >
-              <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-[150%] skew-x-[-20deg] group-hover:translate-x-[150%] transition-transform duration-1000 ease-out pointer-events-none"></div>
               {loading ? (
-                <span className="flex items-center gap-3">
+                <span className="flex items-center gap-3 text-gradient tracking-wide text-lg font-medium">
                   <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
                   Analyzing Profile...
                 </span>
               ) : (
-                <span className="flex items-center gap-2 group-disabled:opacity-50 tracking-wide text-lg text-white">
-                  <Sparkles className="w-5 h-5 opacity-70 group-hover:opacity-100 transition-opacity" />
+                <span className="flex items-center gap-2 group-disabled/btn:opacity-50 tracking-wide text-lg text-gradient font-medium">
+                  <Sparkles className="w-5 h-5 opacity-70 group-hover/btn:opacity-100 transition-opacity" />
                   Generate Analysis
                 </span>
               )}

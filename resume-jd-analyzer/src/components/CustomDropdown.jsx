@@ -26,9 +26,9 @@ export default function CustomDropdown({ options, value, onChange, label }) {
                 className="w-full p-4 bg-white/5 border border-white/10 rounded-2xl hover:border-white/30 hover:bg-white/10 transition-all cursor-pointer flex justify-between items-center backdrop-blur-md shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]"
                 onClick={() => setIsOpen(!isOpen)}
             >
-                <span className="text-white font-medium pl-1">{selectedOption?.label || "Select an option"}</span>
+                <span className="text-gradient font-medium pl-1">{selectedOption?.label || "Select an option"}</span>
                 <ChevronDown
-                    className={`w-5 h-5 text-slate-400 transition-transform duration-300 ${isOpen ? 'rotate-180 text-white' : ''}`}
+                    className={`w-5 h-5 text-slate-400 transition-transform duration-300 ${isOpen ? 'rotate-180 text-gradient' : ''}`}
                 />
             </div>
 
@@ -38,8 +38,8 @@ export default function CustomDropdown({ options, value, onChange, label }) {
                         <div
                             key={option.value}
                             className={`px-5 py-3.5 mx-2 rounded-xl cursor-pointer flex items-center justify-between transition-colors duration-200 ${option.value === value
-                                    ? 'bg-white/10 text-white font-semibold'
-                                    : 'text-slate-300 hover:bg-white/5 hover:text-white'
+                                    ? 'bg-white/10 text-gradient font-semibold'
+                                    : 'text-slate-300 hover:bg-white/5 hover:text-gradient'
                                 }`}
                             onClick={() => {
                                 onChange(option.value);
@@ -47,7 +47,7 @@ export default function CustomDropdown({ options, value, onChange, label }) {
                             }}
                         >
                             <span>{option.label}</span>
-                            {option.value === value && <Check className="w-4 h-4 text-white" />}
+                            {option.value === value && <Check className="w-4 h-4 text-gradient" />}
                         </div>
                     ))}
                 </div>

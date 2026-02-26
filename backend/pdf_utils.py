@@ -14,6 +14,6 @@ def extract_text_from_pdf(pdf_bytes) -> str:
     text = "\n".join(text_chunks).strip()
 
     if not text:
-        raise ValueError("No extractable text found in PDF")
+        raise ValueError("No extractable text found in PDF. Note: Scanned images/OCRs are not currently supported.")
 
     return text
