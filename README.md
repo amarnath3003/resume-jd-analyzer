@@ -12,7 +12,13 @@ Backend API (Render – Swagger Docs):
 👉 https://resume-jd-analyzer-backend.onrender.com/docs
 
 ---
+![screenshots](/resume-jd-analyzer/src/assets/Screenshots/resjd-img1.png)
+![screenshots](/resume-jd-analyzer/src/assets/Screenshots/resjd-img2.png)
+![screenshots](/resume-jd-analyzer/src/assets/Screenshots/resjd-img3.png)
+![screenshots](/resume-jd-analyzer/src/assets/Screenshots/resjd-img4.png)
 
+
+resume-jd-analyzer/src/assets/Screenshots
 ## Overview
 
 This application allows users to upload a resume and a job description in PDF format and receive an AI-driven evaluation of how well the resume matches the role.  
