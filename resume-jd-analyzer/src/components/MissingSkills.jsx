@@ -1,9 +1,11 @@
+import { AlertCircle } from "lucide-react";
+
 export default function MissingSkills({ items }) {
   if (!items || items.length === 0) {
     return (
       <div className="glass-card border-l-4 border-l-white/60 p-6 relative overflow-hidden group">
         <h3 className="text-xl font-bold text-white mb-2 flex items-center gap-2">
-          <span className="opacity-80">📋</span> Missing Skills
+          <AlertCircle className="w-5 h-5 opacity-80" /> Missing Skills
         </h3>
         <p className="text-white/60 text-sm font-medium">No missing critical skills identified.</p>
       </div>
@@ -16,7 +18,7 @@ export default function MissingSkills({ items }) {
 
       <div className="mb-8 relative z-10 border-b border-white/10 pb-6">
         <h3 className="text-2xl font-bold text-white flex items-center gap-3 mb-2 tracking-tight">
-          <span className="opacity-80">📋</span> Missing Skills <span className="text-white/40 text-lg">({items.length})</span>
+          <AlertCircle className="w-6 h-6 opacity-80" /> Missing Skills <span className="text-white/40 text-lg">({items.length})</span>
         </h3>
         <p className="text-white/60 text-sm md:text-base font-medium">
           These skills are required but not found in your resume
@@ -30,10 +32,10 @@ export default function MissingSkills({ items }) {
               <div className="text-white font-semibold text-lg tracking-tight">{item.skill}</div>
               {item.importance && (
                 <span className={`shrink-0 inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider border ${item.importance.toLowerCase() === 'high'
-                    ? 'bg-white/20 text-white border-white/30'
-                    : item.importance.toLowerCase() === 'medium'
-                      ? 'bg-white/10 text-white/90 border-white/20'
-                      : 'bg-transparent text-white/60 border-white/10'
+                  ? 'bg-white/20 text-white border-white/30'
+                  : item.importance.toLowerCase() === 'medium'
+                    ? 'bg-white/10 text-white/90 border-white/20'
+                    : 'bg-transparent text-white/60 border-white/10'
                   }`}>
                   {item.importance} Priority
                 </span>

@@ -1,9 +1,11 @@
+import { AlertTriangle, Lightbulb } from "lucide-react";
+
 export default function WeakEvidence({ items }) {
   if (!items || items.length === 0) {
     return (
       <div className="glass-card border-l-4 border-l-white/60 p-6 relative overflow-hidden group">
         <h3 className="text-xl font-bold text-white mb-2 flex items-center gap-2">
-          <span className="opacity-80">⚠️</span> Weak Evidence
+          <AlertTriangle className="w-5 h-5 opacity-80" /> Weak Evidence
         </h3>
         <p className="text-white/60 text-sm font-medium">No weakly supported skills found.</p>
       </div>
@@ -16,7 +18,7 @@ export default function WeakEvidence({ items }) {
 
       <div className="mb-8 relative z-10 border-b border-white/10 pb-6">
         <h3 className="text-2xl font-bold text-white flex items-center gap-3 mb-2 tracking-tight">
-          <span className="opacity-80">⚠️</span> Weak Evidence <span className="text-white/40 text-lg">({items.length})</span>
+          <AlertTriangle className="w-6 h-6 opacity-80" /> Weak Evidence <span className="text-white/40 text-lg">({items.length})</span>
         </h3>
         <p className="text-white/60 text-sm md:text-base font-medium">
           These skills are mentioned but lack strong supporting evidence
@@ -30,7 +32,7 @@ export default function WeakEvidence({ items }) {
             <div className="text-white/70 text-sm leading-relaxed font-medium mb-4">{item.issue || item.reason}</div>
             {item.suggested_fix && (
               <div className="mt-2 p-4 bg-black/40 rounded-xl border border-white/10 text-sm text-white/80 flex items-start gap-3 relative z-10 backdrop-blur-md">
-                <span className="opacity-80 shrink-0 mt-0.5">💡</span>
+                <Lightbulb className="w-4 h-4 opacity-80 shrink-0 mt-0.5" />
                 <span className="leading-snug">{item.suggested_fix}</span>
               </div>
             )}

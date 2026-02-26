@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { analyzeResume } from "./api";
+import { FileText, Target, Sparkles, AlertTriangle } from "lucide-react";
 import "./index.css"; // Ensure we're importing tailwind
 
 import ResumeInput from "./components/ResumeInput";
@@ -72,11 +73,15 @@ function App() {
         <section className="mb-12 relative z-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
             <div className="glass-card p-6 md:p-8">
-              <h2 className="text-white text-xl font-semibold mb-6 flex items-center gap-2"><span className="text-2xl text-white/50">📄</span> Your Resume</h2>
+              <h2 className="text-white text-xl font-semibold mb-6 flex items-center gap-2">
+                <FileText className="w-6 h-6 text-white/50" /> Your Resume
+              </h2>
               <ResumeInput setResumeFile={setResumeFile} />
             </div>
             <div className="glass-card p-6 md:p-8">
-              <h2 className="text-white text-xl font-semibold mb-6 flex items-center gap-2"><span className="text-2xl text-white/50">🎯</span> Target JD</h2>
+              <h2 className="text-white text-xl font-semibold mb-6 flex items-center gap-2">
+                <Target className="w-6 h-6 text-white/50" /> Target JD
+              </h2>
               <JobDescriptionInput setJdFile={setJdFile} />
             </div>
           </div>
@@ -149,7 +154,7 @@ function App() {
                 </span>
               ) : (
                 <span className="flex items-center gap-2 group-disabled:opacity-50 tracking-wide text-lg text-white">
-                  <span className="opacity-70 group-hover:opacity-100 transition-opacity">✨</span>
+                  <Sparkles className="w-5 h-5 opacity-70 group-hover:opacity-100 transition-opacity" />
                   Generate Analysis
                 </span>
               )}
@@ -162,7 +167,7 @@ function App() {
         {error && (
           <div className="bg-red-500/10 border-l-4 border-red-500 p-4 rounded-xl my-6 backdrop-blur-md shadow-[0_0_20px_rgba(239,68,68,0.2)]">
             <p className="text-red-400 font-semibold flex items-center gap-2">
-              <span>⚠️</span> {error}
+              <AlertTriangle className="w-5 h-5 flex-shrink-0" /> {error}
             </p>
           </div>
         )}

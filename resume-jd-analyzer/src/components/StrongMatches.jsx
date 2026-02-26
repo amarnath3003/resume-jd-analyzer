@@ -1,3 +1,5 @@
+import { CheckCircle2 } from "lucide-react";
+
 export default function StrongMatches({ items }) {
   // Generate random confidence above 90% if not provided
   const getConfidence = (item) => {
@@ -12,7 +14,7 @@ export default function StrongMatches({ items }) {
     return (
       <div className="glass-card border-l-4 border-l-white/60 p-6 relative overflow-hidden group">
         <h3 className="text-xl font-bold text-white mb-2 flex items-center gap-2">
-          <span className="opacity-80">✅</span> Strong Matches
+          <CheckCircle2 className="w-5 h-5 opacity-80" /> Strong Matches
         </h3>
         <p className="text-white/60 text-sm font-medium">No strong matches found yet.</p>
       </div>
@@ -25,7 +27,7 @@ export default function StrongMatches({ items }) {
 
       <div className="mb-8 relative z-10 border-b border-white/10 pb-6">
         <h3 className="text-2xl font-bold text-white flex items-center gap-3 mb-2 tracking-tight">
-          <span className="opacity-80">✅</span> Strong Matches <span className="text-white/40 text-lg">({items.length})</span>
+          <CheckCircle2 className="w-6 h-6 opacity-80" /> Strong Matches <span className="text-white/40 text-lg">({items.length})</span>
         </h3>
         <p className="text-white/60 text-sm md:text-base font-medium">
           These skills are clearly demonstrated in your resume

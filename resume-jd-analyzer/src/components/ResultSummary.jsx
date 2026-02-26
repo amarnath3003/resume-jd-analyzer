@@ -1,3 +1,5 @@
+import { BarChart3 } from "lucide-react";
+
 export default function ResultSummary({ result }) {
   const overallMatch = result?.overall_match_score || 0;
   const matchPercentage = typeof overallMatch === "number" ? overallMatch : parseInt(overallMatch) || 0;
@@ -14,7 +16,7 @@ export default function ResultSummary({ result }) {
       <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
 
       <h2 className="text-3xl font-bold text-white mb-8 flex items-center gap-3 relative z-10 tracking-tight">
-        <span className="opacity-80">📊</span> Analysis Summary
+        <BarChart3 className="w-8 h-8 opacity-80" /> Analysis Summary
       </h2>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10 relative z-10">

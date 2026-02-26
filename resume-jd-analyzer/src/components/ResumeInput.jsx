@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FileText, UploadCloud } from "lucide-react";
 
 export default function ResumeInput({ setResumeFile }) {
   const [dragActive, setDragActive] = useState(false);
@@ -64,8 +65,8 @@ export default function ResumeInput({ setResumeFile }) {
           className="hidden"
         />
         <label htmlFor="resume-input" className="cursor-pointer flex flex-col items-center justify-center w-full h-full m-0 min-h-[120px]">
-          <div className="text-3xl mb-4 transition-transform duration-300 group-hover:-translate-y-2 opacity-80">
-            {fileName ? "📄" : "📥"}
+          <div className="mb-4 transition-transform duration-300 group-hover:-translate-y-2 flex items-center justify-center">
+            {fileName ? <FileText className="w-10 h-10 text-white/80" /> : <UploadCloud className="w-10 h-10 text-white/60" />}
           </div>
           <div className="text-white font-medium mb-2 text-center transition-colors">
             {fileName ? (
