@@ -12,10 +12,8 @@ Backend API (Render – Swagger Docs):
 👉 https://resume-jd-analyzer-backend.onrender.com/docs
 
 ---
-![screenshots](/resume-jd-analyzer/src/assets/Screenshots/resjd-img1.png)
-![screenshots](/resume-jd-analyzer/src/assets/Screenshots/resjd-img2.png)
-![screenshots](/resume-jd-analyzer/src/assets/Screenshots/resjd-img3.png)
-![screenshots](/resume-jd-analyzer/src/assets/Screenshots/resjd-img4.png)
+![screenshots](/resume-jd-analyzer/src/assets/Firefly.jpg)
+
 
 
 ## Overview
